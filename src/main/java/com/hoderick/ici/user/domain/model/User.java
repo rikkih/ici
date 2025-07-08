@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Getter
 @Entity
 @Table(name = "users")
+@Getter
 @NoArgsConstructor
 public class User {
 
@@ -21,20 +21,6 @@ public class User {
     private UUID id;
     private String name;
     private String email;
-    private UserType type;
-
-    public User(String name, String email, UserType type) {
-        this.name = name;
-        this.email = email;
-        this.type = type;
-    }
-
-    // Package-private constructor including id — for persistence and tests only
-    User(UUID id, String name, String email, UserType type) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.type = type;
-    }
+    private UserType userType;
 
 }

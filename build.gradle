@@ -35,6 +35,8 @@ dependencies {
 	implementation 'org.springframework.modulith:spring-modulith-starter-jpa'
 	implementation 'org.mapstruct:mapstruct:1.6.3'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'io.lettuce:lettuce-core'
 
 	compileOnly 'org.projectlombok:lombok'
 
