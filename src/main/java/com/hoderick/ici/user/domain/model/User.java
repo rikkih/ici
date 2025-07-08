@@ -1,5 +1,6 @@
 package com.hoderick.ici.user.domain.model;
 
+import com.hoderick.ici.common.Auditable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Table(name = "users")
 @Getter
 @NoArgsConstructor
-public class User {
+public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

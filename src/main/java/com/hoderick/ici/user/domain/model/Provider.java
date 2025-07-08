@@ -1,5 +1,6 @@
 package com.hoderick.ici.user.domain.model;
 
+import com.hoderick.ici.common.Auditable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
-public class Provider {
+public class Provider extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

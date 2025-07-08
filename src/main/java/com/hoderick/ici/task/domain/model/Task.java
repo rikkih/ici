@@ -1,5 +1,6 @@
 package com.hoderick.ici.task.domain.model;
 
+import com.hoderick.ici.common.Auditable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Table(name = "tasks")
 @NoArgsConstructor
 @Getter
-public class Task {
+public class Task extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
