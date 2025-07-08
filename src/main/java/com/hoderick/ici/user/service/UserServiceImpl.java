@@ -6,11 +6,13 @@ import com.hoderick.ici.user.domain.model.User;
 import com.hoderick.ici.user.domain.model.UserType;
 import com.hoderick.ici.user.domain.repository.UserRepository;
 import com.hoderick.ici.user.dto.UserDto;
+import com.hoderick.ici.user.exception.UserNotFoundException;
 import com.hoderick.ici.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,7 +40,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUser(UUID id) {
-        return null;
+        return userRepository.findById(id)
+                .map(userMapper::toDto)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::toDto)
+                .toList();
     }
 
     private Requester createRequester(User user) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,6 +25,11 @@ public class UserController {
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto request) {
         UserDto user = userService.createUser(request);
         return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok().body(userService.getAllUsers());
     }
 
     @GetMapping("/{id}")

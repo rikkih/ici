@@ -1,6 +1,7 @@
 package com.hoderick.ici.location.service;
 
 import com.hoderick.ici.location.dto.NearbyUserLocation;
+import com.hoderick.ici.location.exception.UserNotFoundException;
 import com.hoderick.ici.user.service.ProviderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public void updateLocation(UUID userId, double longitude, double latitude) {
         if (!providerService.isValidProvider(userId)) {
-            throw new IllegalArgumentException("The given User ID does not correlate to a registered provider.");
+            throw new UserNotFoundException("The given User ID does not correlate to a registered provider.");
         }
 
         RedisGeoCommands.GeoLocation<String> location = new RedisGeoCommands.GeoLocation<>(
