@@ -1,7 +1,9 @@
 package com.hoderick.ici.location.service;
 
 import com.hoderick.ici.location.dto.NearbyUserLocation;
+import com.hoderick.ici.user.service.ProviderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
@@ -14,20 +16,27 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
 
-    private static final String GEO_KEY = "drivers:locations";
+    private static final String GEO_KEY = "provider:locations";
 
     private final RedisTemplate<String, String> redisTemplate;
+    private final ProviderService providerService;
 
     @Override
     public void updateLocation(UUID userId, double longitude, double latitude) {
+        if (!providerService.isValidProvider(userId)) {
+            throw new IllegalArgumentException("The given User ID does not correlate to a registered provider.");
+        }
+
         RedisGeoCommands.GeoLocation<String> location = new RedisGeoCommands.GeoLocation<>(
                 userId.toString(),
                 new Point(longitude, latitude)
         );
+        log.debug("Updating location for user {}", userId);
         redisTemplate.opsForGeo().add(GEO_KEY, location);
     }
 
