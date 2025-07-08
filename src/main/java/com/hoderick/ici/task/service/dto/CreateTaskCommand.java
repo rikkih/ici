@@ -2,5 +2,5 @@ package com.hoderick.ici.task.service.dto;
 
 import com.hoderick.ici.task.domain.model.TaskType;
 
-public record CreateTaskCommand(String name, TaskType taskType) {
+public record CreateTaskCommand(String name, TaskType taskType, String description) {
 }

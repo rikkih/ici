@@ -1,6 +1,4 @@
 package com.hoderick.ici.task.api.dto.response;
 
-import com.hoderick.ici.task.domain.model.TaskType;
-
-public record TaskResponse(String name, String type) {
+public record TaskResponse(String name, String description, String type) {
 }

@@ -25,16 +25,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private TaskType type;
-
-    @NotBlank
-    @Size(max = 50)
     private String name;
-
-    @NotBlank
-    @Size(max = 500)
     private String description;
 
 }
