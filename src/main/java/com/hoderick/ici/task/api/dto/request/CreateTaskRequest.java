@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.UUID;
+
 public record CreateTaskRequest(
         @NotBlank(message = "Task must have a name")
         @Size(max = 100, message = "Task name must be at most 100 characters")
@@ -16,6 +18,9 @@ public record CreateTaskRequest(
 
         // TODO: Think about creating a public facing enum so as to hide internal details
         @NotNull(message = "Task type is required")
-        TaskType taskType
+        TaskType taskType,
+
+        @NotNull(message = "A task needs a valid Requester")
+        UUID requesterId
 ) {
 }
