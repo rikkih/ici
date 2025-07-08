@@ -1,5 +1,7 @@
 package com.hoderick.ici.user.service;
 
+import com.hoderick.ici.user.domain.model.Provider;
+import com.hoderick.ici.user.domain.model.Requester;
 import com.hoderick.ici.user.domain.model.User;
 import com.hoderick.ici.user.domain.model.UserType;
 import com.hoderick.ici.user.domain.repository.UserRepository;
@@ -16,6 +18,8 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ProviderService providerService;
+    private final RequesterService requesterService;
     private final UserMapper userMapper;
 
     @Override
@@ -37,10 +41,13 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    private void createRequester(User user) {
-
+    private Requester createRequester(User user) {
+        Requester requester = new Requester(user);
+        return requesterService.createRequester(requester);
     }
 
-    private void createProvider(User user) {
+    private Provider createProvider(User user) {
+        Provider provider = new Provider(user);
+        return providerService.createProvider(provider);
     }
 }

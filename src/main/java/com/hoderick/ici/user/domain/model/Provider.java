@@ -8,12 +8,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Provider extends Auditable {
 
     @Id
@@ -25,5 +27,10 @@ public class Provider extends Auditable {
 
     @Enumerated(EnumType.STRING)
     private ProviderStatus status;
+
+    public Provider(User user) {
+        this.user = Objects.requireNonNull(user);
+        this.status = ProviderStatus.ACTIVE;
+    }
 
 }

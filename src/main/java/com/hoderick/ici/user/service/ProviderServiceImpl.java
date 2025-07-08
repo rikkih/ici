@@ -15,7 +15,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public Provider createProvider(Provider provider) {
-        return null;
+        return providerRepository.save(provider);
     }
 
     @Override
