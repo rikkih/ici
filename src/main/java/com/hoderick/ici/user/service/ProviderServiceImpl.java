@@ -19,7 +19,7 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public boolean isValidProvider(UUID id) {
-        return providerRepository.existsById(id);
+    public boolean isValidProvider(UUID userId) {
+        return providerRepository.existsByUserId(userId);
     }
 }
