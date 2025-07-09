@@ -21,6 +21,9 @@ public record CreateTaskRequest(
         TaskType taskType,
 
         @NotNull(message = "A task needs a valid Requester")
-        UUID requesterId
+        UUID requesterId,
+
+        @NotNull
+        LocationDto location
 ) {
 }

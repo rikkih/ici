@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Service
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
@@ -26,9 +26,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public TaskDto createTask(CreateTaskCommand command) {
-        Task task = taskServiceMapper.fromCreateTaskCommand(command);
+        Task task = Task.fromCommand(command);
         Task savedTask = taskRepository.save(task);
-        eventPublisher.publishEvent(new TaskCreatedEvent(savedTask.getId()));
+        publishTaskCreatedEvent(savedTask);
         return taskServiceMapper.toDto(savedTask);
     }
 
@@ -42,6 +42,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto getTask(UUID id) {
-        return null;
+        return taskRepository.findById(id)
+                .map(taskServiceMapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("No Task found with ID: {}" + id));
+    }
+
+    private void publishTaskCreatedEvent(Task task) {
+        double longitude = task.getLocation().getLongitude();
+        double latitude = task.getLocation().getLatitude();
+        eventPublisher.publishEvent(new TaskCreatedEvent(task.getId(), task.getRequesterId(), longitude, latitude));
     }
 }
