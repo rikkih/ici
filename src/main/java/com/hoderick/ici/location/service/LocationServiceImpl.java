@@ -1,5 +1,6 @@
 package com.hoderick.ici.location.service;
 
+import com.hoderick.ici.location.PublicLocationService;
 import com.hoderick.ici.location.dto.NearbyUserLocation;
 import com.hoderick.ici.location.exception.UserNotFoundException;
 import com.hoderick.ici.user.service.ProviderService;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class LocationServiceImpl implements LocationService {
+public class LocationServiceImpl implements LocationService, PublicLocationService {
 
     private static final String GEO_KEY = "provider:locations";
 
